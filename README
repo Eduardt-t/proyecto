@@ -1,0 +1,84 @@
+README
+Integrantes
+
+    Catalina Figueroa
+    Eduardo Toledo
+    
+Descripción del Proyecto
+
+Este proyecto implementa el algoritmo de Needleman-Wunsch en C++ para realizar el alineamiento óptimo de dos secuencias de ADN. El programa utiliza:
+
+    Una matriz de similitud que representa las puntuaciones basadas en emparejamientos de nucleótidos.
+    Un modelo de penalización por espacios (gaps) para calcular la mejor alineación entre dos cadenas.
+
+Los resultados incluyen:
+
+    El puntaje máximo del alineamiento.
+    Las secuencias alineadas.
+    Una representación gráfica del proceso y del alineamiento utilizando Graphviz.
+
+Funcionamiento del Programa
+
+Comando para ejecutar:
+
+$ ./programa -C1 cad1.txt -C2 cad2.txt -U funU.tex -V -2
+
+Parámetros:
+
+    -C1: Archivo que contiene la primera cadena de nucleótidos.
+    -C2: Archivo que contiene la segunda cadena de nucleótidos.
+    -U: Matriz de similitud que define los puntajes de emparejamiento.
+    -V: Penalidad por espacios (gaps), en este caso -2.
+
+Definiciones Importantes:
+
+    Puntajes de complementariedad en la matriz de similitud (U):
+        Máxima complementariedad (Tres enlaces de hidrógeno):
+            C≡G ; G≡C = 3.
+        Media complementariedad (Dos enlaces de hidrógeno):
+            A=T ; T=A = 2.
+        No complementariedad:
+            A≠T ; T≠A ; C≠G ; G≠C = -1.
+        Emparejamientos consigo mismo:
+            A=A ; T=T ; G=G ; C=C = 2.
+
+    Salidas del programa:
+        Puntaje Máximo: Calcula el puntaje más alto de alineamiento entre las dos cadenas usando la matriz U y la penalidad de gap.
+        Alineamientos Óptimos: Reconstruye las secuencias alineadas que logran el puntaje máximo.
+        Ruta Óptima: Resalta el camino tomado en la matriz dinámica para alcanzar el puntaje máximo.
+        Visualizaciones generadas:
+            Archivo matriz_dp.dot: Contiene la matriz de puntuación con la ruta óptima resaltada.
+            Archivo alineamiento.dot: Representa el alineamiento de las cadenas.
+
+Visualización con Graphviz
+
+Para convertir los archivos .dot generados en imágenes:
+
+    Matriz (matriz_dp.dot):
+
+$ dot -Tpng matriz_dp.dot -o matriz.png
+
+Alineamiento (alineamiento.dot):
+
+    $ dot -Tpng alineamiento.dot -o alineamiento.png
+
+Tiempo de Ejecución
+
+El programa reporta el tiempo requerido para:
+
+    Calcular el alineamiento.
+    Generar las visualizaciones.
+    Esto se muestra en nanosegundos para evaluar el rendimiento.
+
+Limitaciones del Programa
+
+El programa está diseñado para trabajar con cadenas de ADN de hasta 30 nucleótidos debido a las limitaciones de representación gráfica de Graphviz.
+Para trabajar con cadenas más largas:
+
+Comenta la línea 185 del archivo main.cpp que genera el archivo matriz_dp.dot. Esto evitará que el programa intente crear gráficos con datos excesivamente grandes:
+
+generarMatrizGraphviz(dp, rutaOptima, "matriz_dp.dot", alineamiento1, alineamiento2);
+
+Agradecimiento
+
+Gracias, profesor, por aceptar nuestro README, por las palomitas, y por insistir en enseñarnos cosas nuevas. Su motivación para que participemos activamente, incluso pasando al pizarrón, nos ha ayudado a aprender y crecer. 😊
